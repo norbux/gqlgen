@@ -1,4 +1,4 @@
-module github.com/99designs/gqlgen
+module github.com/norbux/gqlgen
 
 go 1.17
 
@@ -28,3 +28,5 @@ require (
 	golang.org/x/sys v0.0.0-20210510120138-977fb7262007 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 )
+
+replace github.com/99designs/gqlgen => github.com/norbux/gqlgen v0.14.0
