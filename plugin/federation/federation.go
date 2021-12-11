@@ -7,11 +7,11 @@ import (
 
 	"github.com/vektah/gqlparser/v2/ast"
 
-	"github.com/99designs/gqlgen/codegen"
-	"github.com/99designs/gqlgen/codegen/config"
-	"github.com/99designs/gqlgen/codegen/templates"
-	"github.com/99designs/gqlgen/plugin"
-	"github.com/99designs/gqlgen/plugin/federation/fieldset"
+	"github.com/norbux/gqlgen/codegen"
+	"github.com/norbux/gqlgen/codegen/config"
+	"github.com/norbux/gqlgen/codegen/templates"
+	"github.com/norbux/gqlgen/plugin"
+	"github.com/norbux/gqlgen/plugin/federation/fieldset"
 )
 
 type federation struct {
@@ -34,21 +34,21 @@ func (f *federation) MutateConfig(cfg *config.Config) error {
 	builtins := config.TypeMap{
 		"_Service": {
 			Model: config.StringList{
-				"github.com/99designs/gqlgen/plugin/federation/fedruntime.Service",
+				"github.com/norbux/gqlgen/plugin/federation/fedruntime.Service",
 			},
 		},
 		"_Entity": {
 			Model: config.StringList{
-				"github.com/99designs/gqlgen/plugin/federation/fedruntime.Entity",
+				"github.com/norbux/gqlgen/plugin/federation/fedruntime.Entity",
 			},
 		},
 		"Entity": {
 			Model: config.StringList{
-				"github.com/99designs/gqlgen/plugin/federation/fedruntime.Entity",
+				"github.com/norbux/gqlgen/plugin/federation/fedruntime.Entity",
 			},
 		},
 		"_Any": {
-			Model: config.StringList{"github.com/99designs/gqlgen/graphql.Map"},
+			Model: config.StringList{"github.com/norbux/gqlgen/graphql.Map"},
 		},
 	}
 	for typeName, entry := range builtins {

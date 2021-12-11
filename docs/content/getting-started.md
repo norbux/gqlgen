@@ -33,7 +33,7 @@ Next, create a `tools.go` file and add gqlgen as a [tool dependency for your mod
 package tools
 
 import (
-	_ "github.com/99designs/gqlgen"
+	_ "github.com/norbux/gqlgen"
 )
 ```
 
@@ -44,7 +44,7 @@ go mod tidy
 
 If you want to specify a particular version of gqlgen, you can use `go get`. For example
 ```shell
-go get -d github.com/99designs/gqlgen@v0.14.0
+go get -d github.com/norbux/gqlgen@v0.14.0
 ```
 
 ## Building the server
@@ -52,7 +52,7 @@ go get -d github.com/99designs/gqlgen@v0.14.0
 ### Create the project skeleton
 
 ```shell
-go run github.com/99designs/gqlgen init
+go run github.com/norbux/gqlgen init
 ```
 
 This will create our suggested package layout. You can modify these paths in gqlgen.yml if you need to.
@@ -207,7 +207,7 @@ type Todo struct {
 >
 > By default gqlgen will use any models in the model directory that match on name, this can be configured in `gqlgen.yml`.
 
-And run `go run github.com/99designs/gqlgen generate`.
+And run `go run github.com/norbux/gqlgen generate`.
 
 Now if we look in `graph/schema.resolvers.go` we can see a new resolver, lets implement it and fix `CreateTodo`.
 ```go
@@ -231,7 +231,7 @@ func (r *todoResolver) User(ctx context.Context, obj *model.Todo) (*model.User, 
 At the top of our `resolver.go`, between `package` and `import`, add the following line:
 
 ```go
-//go:generate go run github.com/99designs/gqlgen generate
+//go:generate go run github.com/norbux/gqlgen generate
 ```
 
 This magic comment tells `go generate` what command to run when we want to regenerate our code. To run go generate recursively over your entire project, use this command:

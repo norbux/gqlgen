@@ -11,7 +11,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/99designs/gqlgen/client"
+	"github.com/norbux/gqlgen/client"
 	"github.com/stretchr/testify/require"
 )
 

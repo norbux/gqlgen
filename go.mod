@@ -29,4 +29,4 @@ require (
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 )
 
-replace  github.com/norbux/gqlgen => github.com/99designs/gqlgen v0.14.0
+// replace  github.com/norbux/gqlgen => github.com/norbux/gqlgen v0.14.0

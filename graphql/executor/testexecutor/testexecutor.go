@@ -8,8 +8,8 @@ import (
 	"io"
 	"time"
 
-	"github.com/99designs/gqlgen/graphql"
-	"github.com/99designs/gqlgen/graphql/executor"
+	"github.com/norbux/gqlgen/graphql"
+	"github.com/norbux/gqlgen/graphql/executor"
 	"github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
 )

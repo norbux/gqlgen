@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/99designs/gqlgen/internal/code"
+	"github.com/norbux/gqlgen/internal/code"
 )
 
 type ExecConfig struct {

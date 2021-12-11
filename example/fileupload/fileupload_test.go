@@ -9,11 +9,11 @@ import (
 	"os"
 	"testing"
 
-	gqlclient "github.com/99designs/gqlgen/client"
-	"github.com/99designs/gqlgen/example/fileupload/model"
-	"github.com/99designs/gqlgen/graphql"
-	"github.com/99designs/gqlgen/graphql/handler"
-	"github.com/99designs/gqlgen/graphql/handler/transport"
+	gqlclient "github.com/norbux/gqlgen/client"
+	"github.com/norbux/gqlgen/example/fileupload/model"
+	"github.com/norbux/gqlgen/graphql"
+	"github.com/norbux/gqlgen/graphql/handler"
+	"github.com/norbux/gqlgen/graphql/handler/transport"
 	"github.com/stretchr/testify/require"
 )
 
