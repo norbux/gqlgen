@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/norbux/gqlgen/api"
 	"github.com/norbux/gqlgen/codegen/config"
@@ -17,10 +18,10 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-var configTemplate = template.Must(template.New("name").Parse(
-	`# Where are all the schema files located? globs are supported eg  src/**/*.graphqls
+// var configTemplate = template.Must(template.New("name").Parse(
+var tmpl =	`# Where are all the schema files located? globs are supported eg  src/**/*.graphqls
 schema:
-  - {{.baseDirectory}}/graph/*.graphqls
+  - baseDirectory/graph/*.graphqls
 
 # Where should the generated server code go?
 exec:
@@ -74,7 +75,9 @@ models:
       - github.com/norbux/gqlgen/graphql.Int
       - github.com/norbux/gqlgen/graphql.Int64
       - github.com/norbux/gqlgen/graphql.Int32
-`))
+`
+
+var configTemplate = template.Must(template.New("name").Parse(tmpl))
 
 var schemaDefault = `# GraphQL schema example
 #
@@ -105,10 +108,6 @@ type Mutation {
   createTodo(input: NewTodo!): Todo!
 }
 `
-type w struct {}
-func (t *w) Write(b []byte) (n int, err error) {
-	return 0, nil
-}
 
 var initCmd = &cli.Command{
 	Name:  "init",
@@ -126,8 +125,8 @@ var initCmd = &cli.Command{
 		schemaFilename := ctx.String("schema")
 		baseDirectory  := ctx.String("base-dir")
 
-		wr := w{}
-		configTemplate.Execute(&wr, baseDirectory)
+		tmpl = strings.Replace(tmpl, "baseDirectory", baseDirectory, 1)
+		configTemplate.Parse(tmpl)
 
 		pkgName := code.ImportPathForDir(".")
 		if pkgName == "" {
