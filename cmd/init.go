@@ -165,7 +165,7 @@ var initCmd = &cli.Command{
 
 		fmt.Println("Creating", baseDirectory + serverFilename)
 		fmt.Println("Generating...")
-		if err := api.Generate(cfg, api.AddPlugin(servergen.New(serverFilename))); err != nil {
+		if err := api.Generate(cfg, api.AddPlugin(servergen.New(baseDirectory + serverFilename))); err != nil {
 			fmt.Fprintln(os.Stderr, err.Error())
 		}
 
