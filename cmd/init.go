@@ -105,7 +105,6 @@ type Mutation {
   createTodo(input: NewTodo!): Todo!
 }
 `
-
 var initCmd = &cli.Command{
 	Name:  "init",
 	Usage: "create a new gqlgen project",
@@ -121,6 +120,8 @@ var initCmd = &cli.Command{
 		serverFilename := ctx.String("server")
 		schemaFilename := ctx.String("schema")
 		baseDirectory  := ctx.String("base-dir")
+
+		configTemplate.Execute(nil, baseDirectory)
 
 		pkgName := code.ImportPathForDir(".")
 		if pkgName == "" {
