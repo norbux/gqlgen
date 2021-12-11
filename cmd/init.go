@@ -21,7 +21,7 @@ import (
 // var configTemplate = template.Must(template.New("name").Parse(
 var tmpl =	`# Where are all the schema files located? globs are supported eg  src/**/*.graphqls
 schema:
-  - [baseDirectory]graph/*.graphqls
+  - [baseDirectory]/graph/*.graphqls
 
 # Where should the generated server code go?
 exec:
