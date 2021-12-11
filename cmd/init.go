@@ -21,27 +21,27 @@ import (
 // var configTemplate = template.Must(template.New("name").Parse(
 var tmpl =	`# Where are all the schema files located? globs are supported eg  src/**/*.graphqls
 schema:
-  - baseDirectory/graph/*.graphqls
+  - [baseDirectory]graph/*.graphqls
 
 # Where should the generated server code go?
 exec:
-  filename: graph/generated/generated.go
+  filename: [baseDirectory]graph/generated/generated.go
   package: generated
 
 # Uncomment to enable federation
 # federation:
-#   filename: graph/generated/federation.go
+#   filename: [baseDirectory]graph/generated/federation.go
 #   package: generated
 
 # Where should any generated models go?
 model:
-  filename: graph/model/models_gen.go
+  filename: [baseDirectory]graph/model/models_gen.go
   package: model
 
 # Where should the resolver implementations go?
 resolver:
   layout: follow-schema
-  dir: graph
+  dir: [baseDirectory]graph
   package: graph
 
 # Optional: turn on use ` + "`" + `gqlgen:"fieldName"` + "`" + ` tags in your models
@@ -56,7 +56,7 @@ resolver:
 # gqlgen will search for any type names in the schema in these go packages
 # if they match it will use them, otherwise it will generate them.
 autobind:
-  - "{{.}}/graph/model"
+  - "[baseDirectory]/graph/model"
 
 # This section declares type mapping between the GraphQL and go type systems
 #
@@ -125,7 +125,7 @@ var initCmd = &cli.Command{
 		schemaFilename := ctx.String("schema")
 		baseDirectory  := ctx.String("base-dir")
 
-		tmpl = strings.Replace(tmpl, "baseDirectory", baseDirectory, 1)
+		tmpl = strings.Replace(tmpl, "[baseDirectory]", baseDirectory, 1)
 		configTemplate.Parse(tmpl)
 
 		pkgName := code.ImportPathForDir(".")
