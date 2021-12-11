@@ -125,7 +125,7 @@ var initCmd = &cli.Command{
 		schemaFilename := ctx.String("schema")
 		baseDirectory  := ctx.String("base-dir")
 
-		tmpl = strings.Replace(tmpl, "[baseDirectory]", baseDirectory, 5)
+		tmpl = strings.Replace(tmpl, "[baseDirectory]", baseDirectory, 6)
 		configTemplate.Parse(tmpl)
 
 		pkgName := code.ImportPathForDir(".")
