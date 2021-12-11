@@ -152,7 +152,7 @@ var initCmd = &cli.Command{
 
 		// create the package directory with a temporary file so that go recognises it as a package
 		// and autobinding doesn't error out
-		tmpPackageNameFile := "graph/model/_tmp_gqlgen_init.go"
+		tmpPackageNameFile := baseDirectory + "graph/model/_tmp_gqlgen_init.go"
 		if err := initFile(tmpPackageNameFile, "package model"); err != nil {
 			return err
 		}
@@ -165,7 +165,7 @@ var initCmd = &cli.Command{
 
 		fmt.Println("Creating", baseDirectory + serverFilename)
 		fmt.Println("Generating...")
-		if err := api.Generate(cfg, api.AddPlugin(servergen.New(baseDirectory + serverFilename))); err != nil {
+		if err := api.Generate(cfg, api.AddPlugin(servergen.New(serverFilename))); err != nil {
 			fmt.Fprintln(os.Stderr, err.Error())
 		}
 
