@@ -105,6 +105,11 @@ type Mutation {
   createTodo(input: NewTodo!): Todo!
 }
 `
+type w struct {}
+func (t *w) Write(b []byte) (n int, err error) {
+	return 0, nil
+}
+
 var initCmd = &cli.Command{
 	Name:  "init",
 	Usage: "create a new gqlgen project",
@@ -121,7 +126,8 @@ var initCmd = &cli.Command{
 		schemaFilename := ctx.String("schema")
 		baseDirectory  := ctx.String("base-dir")
 
-		configTemplate.Execute(nil, baseDirectory)
+		wr := w{}
+		configTemplate.Execute(&wr, baseDirectory)
 
 		pkgName := code.ImportPathForDir(".")
 		if pkgName == "" {
