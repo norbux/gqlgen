@@ -25,23 +25,23 @@ schema:
 
 # Where should the generated server code go?
 exec:
-  filename: [baseDirectory]graph/generated/generated.go
+  filename: [baseDirectory]/graph/generated/generated.go
   package: generated
 
 # Uncomment to enable federation
 # federation:
-#   filename: [baseDirectory]graph/generated/federation.go
+#   filename: [baseDirectory]/graph/generated/federation.go
 #   package: generated
 
 # Where should any generated models go?
 model:
-  filename: [baseDirectory]graph/model/models_gen.go
+  filename: [baseDirectory]/graph/model/models_gen.go
   package: model
 
 # Where should the resolver implementations go?
 resolver:
   layout: follow-schema
-  dir: [baseDirectory]graph
+  dir: [baseDirectory]/graph
   package: graph
 
 # Optional: turn on use ` + "`" + `gqlgen:"fieldName"` + "`" + ` tags in your models
