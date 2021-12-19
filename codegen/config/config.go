@@ -543,7 +543,10 @@ func (c *Config) autobind() error {
 	defer file.Close()
 
 	packageString := []byte("package model")
-	ioutil.WriteFile(dir + "/" + fileName, packageString, 0644)
+	err = ioutil.WriteFile(dir + "/" + fileName, packageString, 0644)
+	if err != nil {
+		return nil
+	}
 
 	if len(c.AutoBind) == 0 {
 		return nil
