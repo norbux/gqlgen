@@ -525,12 +525,12 @@ func (c *Config) autobind() error {
 	fmt.Printf("\nc.Model.Filename : %v\n", c.Model.Filename)
 	modelsFilePath := c.Model.Filename
 	modelsFilePath = strings.Replace(modelsFilePath, "models_gen.go", "", 1)
-	//modelsFilePath += "/_tmp_gqlgen_init.go" 
+	modelsFilePath += "_tmp_gqlgen_init.go" 
 
 	// Create a temporary file with "package models" to avoid autobind conflicts
 	fmt.Printf("\nmodelsFilePath : %v\n", modelsFilePath)
-	fmt.Printf("\nWill write to : %v\n", modelsFilePath + "_tmp_gqlgen_init.go")
-	file, err := os.Create(modelsFilePath + "_tmp_gqlgen_init.go")
+	fmt.Printf("\nWill write to : %v\n", modelsFilePath)
+	file, err := os.Create(modelsFilePath)
 	if err != nil {
 		return nil
 	}
