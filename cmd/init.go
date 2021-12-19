@@ -128,7 +128,7 @@ var initCmd = &cli.Command{
 		configFilename := ctx.String("config")
 		serverFilename := ctx.String("server")
 		schemaFilename := ctx.String("schema")
-		baseDirectory  := cwd + ctx.String("base-dir")
+		baseDirectory  := cwd + "/" + ctx.String("base-dir")
 
 		fmt.Printf("Base directory: %v", baseDirectory)
 
