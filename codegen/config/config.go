@@ -534,7 +534,7 @@ func (c *Config) autobind() error {
 	// file, err := os.Create(modelsFilePath + "/_tmp_gqlgen_init.go")
 	dir := path.Dir(c.Model.Filename)
 	fileName := "_tmp_gqlgen_init.go"
-	fmt.Printf("\nWill write to : %v\n", dir + "//" + fileName)
+	fmt.Printf("\nWill write to : %v\n", dir + "/" + fileName)
 	file, err := os.Create(dir + "/" + fileName)
 	if err != nil {
 		return nil
@@ -543,7 +543,7 @@ func (c *Config) autobind() error {
 	defer file.Close()
 
 	packageString := []byte("package model")
-	ioutil.WriteFile(modelsFilePath, packageString, 0644)
+	ioutil.WriteFile(dir + "/" + fileName, packageString, 0644)
 
 	if len(c.AutoBind) == 0 {
 		return nil
