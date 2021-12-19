@@ -518,55 +518,28 @@ func findCfgInDir(dir string) string {
 	return ""
 }
 
-func initFile(filename, contents string) error {
-	if err := os.MkdirAll(filepath.Dir(filename), 0o755); err != nil {
-		return fmt.Errorf("unable to create directory for file '%s': %w", filename, err)
-	}
-	if err := ioutil.WriteFile(filename, []byte(contents), 0o644); err != nil {
-		return fmt.Errorf("unable to write file '%s': %w", filename, err)
-	}
-
-	return nil
-}
-
 func (c *Config) autobind() error {
-	//my-debug
-	fmt.Printf("len(c.AutoBind) = %v\n", len(c.AutoBind))
-	
 	ps := c.Packages.LoadAll(c.AutoBind...)
-	
-	//my-debug
-	fmt.Printf("c.Model.Filename: %v\n", c.Model.Filename)
 
-	//tmpPackageNameFile := baseDirectory + "graph/model/_tmp_gqlgen_init.go"
-	// path := fmt.Sprintf("%+v", ps)
-	// path = strings.Replace(path, "[", "", 1)
-	// path = strings.Replace(path, "]", "", 1)
-	// path = strings.Replace(path, "gqlgen-fork/", "", 1)
-	path := c.Model.Filename
-	path = strings.Replace(path, "models_gen.go", "", 1)
-	path += "/_tmp_gqlgen_init.go" 
+	// Get the models path from the config file
+	modelsFilePath := c.Model.Filename
+	modelsFilePath = strings.Replace(modelsFilePath, "models_gen.go", "", 1)
+	modelsFilePath += "/_tmp_gqlgen_init.go" 
 
-	fmt.Printf("Will write %s\n", path)
-
-	file, err := os.Create(path + "/_tmp_gqlgen_init.go")
+	// Create a temporary file with "package models" to avoid autobind conflicts
+	file, err := os.Create(modelsFilePath)
 	if err != nil {
 		return nil
 	}
-	defer os.Remove(path)
+	defer os.Remove(modelsFilePath)
 	defer file.Close()
 
 	packageString := []byte("package model")
-	ioutil.WriteFile(path, packageString, 0644)
-
+	ioutil.WriteFile(modelsFilePath, packageString, 0644)
 
 	if len(c.AutoBind) == 0 {
 		return nil
 	}
-
-	//my-debug
-	fmt.Printf("len(ps): %v\n", len(ps))
-	fmt.Printf("ps[0].Module.Path: %+v\n", ps)
 
 	for _, t := range c.Schema.Types {
 		if c.Models.UserDefined(t.Name) {
@@ -574,11 +547,6 @@ func (c *Config) autobind() error {
 		}
 
 		for i, p := range ps {
-			//my-debug
-			if p != nil {
-				fmt.Printf("p.Name: %v\n", p.Name)
-			}
-
 			if p == nil || p.Module == nil {
 				return fmt.Errorf("unable to load %s - make sure you're using an import path to a package that exists", c.AutoBind[i])
 			}
