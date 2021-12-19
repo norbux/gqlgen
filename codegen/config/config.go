@@ -530,7 +530,7 @@ func (c *Config) autobind() error {
 	// Create a temporary file with "package models" to avoid autobind conflicts
 	fmt.Printf("\nmodelsFilePath : %v\n", modelsFilePath)
 	fmt.Printf("\nWill write to : %v\n", modelsFilePath + "/_tmp_gqlgen_init.go")
-	file, err := os.Create(modelsFilePath + "/_tmp_gqlgen_init.go")
+	file, err := os.Create(modelsFilePath)
 	if err != nil {
 		return nil
 	}
