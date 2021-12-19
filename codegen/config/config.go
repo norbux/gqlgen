@@ -530,8 +530,7 @@ func (c *Config) autobind() error {
 
 	//my-debug
 	fmt.Printf("len(ps): %v\n", len(ps))
-	fmt.Printf("ps[0].Module.Path: %v\n", ps[0].Module.Path)
-	fmt.Printf("ps[0].Name: %v\n", ps[0].Name)
+	fmt.Printf("ps[0].Module.Path: %+v\n", ps)
 
 	for _, t := range c.Schema.Types {
 		if c.Models.UserDefined(t.Name) {
