@@ -530,6 +530,7 @@ func (c *Config) autobind() error {
 
 	//my-debug
 	fmt.Printf("len(ps): %v\n", len(ps))
+	fmt.Printf("ps[0].Module.Path: %v\n", ps[0].Module.Path)
 	fmt.Printf("ps[0].Name: %v\n", ps[0].Name)
 
 	for _, t := range c.Schema.Types {
@@ -539,8 +540,10 @@ func (c *Config) autobind() error {
 
 		for i, p := range ps {
 			//my-debug
-			fmt.Printf("p.Name: %v\n", p.Name)
-			
+			if p != nil {
+				fmt.Printf("p.Name: %v\n", p.Name)
+			}
+
 			if p == nil || p.Module == nil {
 				return fmt.Errorf("unable to load %s - make sure you're using an import path to a package that exists", c.AutoBind[i])
 			}
