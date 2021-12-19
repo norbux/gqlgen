@@ -518,15 +518,36 @@ func findCfgInDir(dir string) string {
 	return ""
 }
 
+func initFile(filename, contents string) error {
+	if err := os.MkdirAll(filepath.Dir(filename), 0o755); err != nil {
+		return fmt.Errorf("unable to create directory for file '%s': %w", filename, err)
+	}
+	if err := ioutil.WriteFile(filename, []byte(contents), 0o644); err != nil {
+		return fmt.Errorf("unable to write file '%s': %w", filename, err)
+	}
+
+	return nil
+}
+
 func (c *Config) autobind() error {
+	//my-debug
+	fmt.Printf("len(c.AutoBind) = %v\n", len(c.AutoBind))
+	
+	ps := c.Packages.LoadAll(c.AutoBind...)
+	
+	//tmpPackageNameFile := baseDirectory + "graph/model/_tmp_gqlgen_init.go"
+	path := fmt.Sprintf("%+v", ps)
+	path = strings.Replace(path, "[", "", 1)
+	path = strings.Replace(path, "]", "", 1)
+	tmpPackageNameFile := path + "_tmp_gqlgen_init.go"
+	if err := initFile(tmpPackageNameFile, "package model"); err != nil {
+		return err
+	}
+	defer os.Remove(tmpPackageNameFile)
+
 	if len(c.AutoBind) == 0 {
 		return nil
 	}
-
-	//my-debug
-	fmt.Printf("len(c.AutoBind) = %v\n", len(c.AutoBind))
-
-	ps := c.Packages.LoadAll(c.AutoBind...)
 
 	//my-debug
 	fmt.Printf("len(ps): %v\n", len(ps))
