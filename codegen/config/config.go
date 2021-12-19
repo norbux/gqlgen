@@ -541,7 +541,7 @@ func (c *Config) autobind() error {
 		return nil
 	}
 	//defer os.Remove(dir + "/" + fileName)
-	defer file.Close()
+	file.Close()
 
 	packageString := []byte("package model")
 	err = ioutil.WriteFile(dir + "/" + fileName, packageString, 0644)
