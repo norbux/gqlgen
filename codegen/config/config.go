@@ -537,6 +537,7 @@ func (c *Config) autobind() error {
 	fmt.Printf("\nWill write to : %v\n", dir + "/" + fileName)
 	file, err := os.Create(dir + "/" + fileName)
 	if err != nil {
+		fmt.Printf("ERROR os.Create: %v", err)
 		return nil
 	}
 	defer os.Remove(modelsFilePath)
@@ -545,6 +546,7 @@ func (c *Config) autobind() error {
 	packageString := []byte("package model")
 	err = ioutil.WriteFile(dir + "/" + fileName, packageString, 0644)
 	if err != nil {
+		fmt.Printf("ERROR ioutil.WriteFile: %v", err)
 		return nil
 	}
 
