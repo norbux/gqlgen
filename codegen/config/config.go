@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path"
 	"path/filepath"
 	"regexp"
 	"sort"
@@ -528,9 +529,13 @@ func (c *Config) autobind() error {
 	//modelsFilePath += "/_tmp_gqlgen_init.go" 
 
 	// Create a temporary file with "package models" to avoid autobind conflicts
-	fmt.Printf("\nmodelsFilePath : %v\n", modelsFilePath)
-	fmt.Printf("\nWill write to : %v\n", modelsFilePath + "/_tmp_gqlgen_init.go")
-	file, err := os.Create(modelsFilePath)
+	// fmt.Printf("\nmodelsFilePath : %v\n", modelsFilePath)
+	// fmt.Printf("\nWill write to : %v\n", modelsFilePath + "/_tmp_gqlgen_init.go")
+	// file, err := os.Create(modelsFilePath + "/_tmp_gqlgen_init.go")
+	dir := path.Dir(c.Model.Filename)
+	fileName := "_tmp_gqlgen_init.go"
+	fmt.Printf("\nWill write to : %v\n", dir + "/" + fileName)
+	file, err := os.Create(dir + "/" + fileName)
 	if err != nil {
 		return nil
 	}
