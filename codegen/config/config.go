@@ -524,8 +524,8 @@ func (c *Config) autobind() error {
 	// Get the models path from the config file
 	fmt.Printf("\nc.Model.Filename : %v\n", c.Model.Filename)
 	modelsFilePath := c.Model.Filename
-	modelsFilePath = strings.Replace(modelsFilePath, "models_gen.go", "", 1)
-	modelsFilePath += "/_tmp_gqlgen_init.go" 
+	modelsFilePath = strings.Replace(modelsFilePath, "models_gen.go", "_tmp_gqlgen_init.go", 1)
+	//modelsFilePath += "/_tmp_gqlgen_init.go" 
 
 	// Create a temporary file with "package models" to avoid autobind conflicts
 	fmt.Printf("\nmodelsFilePath : %v\n", modelsFilePath)
