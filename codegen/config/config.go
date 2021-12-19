@@ -540,6 +540,8 @@ func (c *Config) autobind() error {
 		fmt.Printf("ERROR os.Create: %v", err)
 		return nil
 	}
+	
+	fmt.Printf("File created: %v", file.Name())
 	defer os.Remove(dir + "/" + fileName)
 	file.Close()
 
