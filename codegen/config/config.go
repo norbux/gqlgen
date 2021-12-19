@@ -540,7 +540,7 @@ func (c *Config) autobind() error {
 		fmt.Printf("ERROR os.Create: %v", err)
 		return nil
 	}
-	defer os.Remove(modelsFilePath)
+	defer os.Remove(dir + "/" + fileName)
 	defer file.Close()
 
 	packageString := []byte("package model")
