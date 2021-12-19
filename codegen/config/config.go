@@ -535,12 +535,17 @@ func (c *Config) autobind() error {
 	
 	ps := c.Packages.LoadAll(c.AutoBind...)
 	
+	//my-debug
+	fmt.Printf("c.Model.Filename: %v\n", c.Model.Filename)
+
 	//tmpPackageNameFile := baseDirectory + "graph/model/_tmp_gqlgen_init.go"
-	path := fmt.Sprintf("%+v", ps)
-	path = strings.Replace(path, "[", "", 1)
-	path = strings.Replace(path, "]", "", 1)
-	path = strings.Replace(path, "gqlgen-fork/", "", 1)
-	path += "/_tmp_gqlgen_init.go"
+	// path := fmt.Sprintf("%+v", ps)
+	// path = strings.Replace(path, "[", "", 1)
+	// path = strings.Replace(path, "]", "", 1)
+	// path = strings.Replace(path, "gqlgen-fork/", "", 1)
+	path := c.Model.Filename
+	path = strings.Replace(path, "models_gen.go", "", 1)
+	path += "/_tmp_gqlgen_init.go" 
 
 	fmt.Printf("Will write %s\n", path)
 
