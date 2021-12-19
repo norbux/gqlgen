@@ -539,7 +539,7 @@ func (c *Config) autobind() error {
 	path := fmt.Sprintf("%+v", ps)
 	path = strings.Replace(path, "[", "", 1)
 	path = strings.Replace(path, "]", "", 1)
-	tmpPackageNameFile := path + "_tmp_gqlgen_init.go"
+	tmpPackageNameFile := path + "/_tmp_gqlgen_init.go"
 	if err := initFile(tmpPackageNameFile, "package model"); err != nil {
 		return err
 	}
