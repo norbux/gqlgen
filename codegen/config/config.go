@@ -541,6 +541,7 @@ func (c *Config) autobind() error {
 	path = strings.Replace(path, "]", "", 1)
 	path = strings.Replace(path, "gqlgen-fork/", "", 1)
 	tmpPackageNameFile := path + "/_tmp_gqlgen_init.go"
+	fmt.Printf("Will write %s",tmpPackageNameFile)
 	if err := initFile(tmpPackageNameFile, "package model"); err != nil {
 		return err
 	}
