@@ -525,32 +525,33 @@ func (c *Config) autobind() error {
 	// Get the models path from the config file
 	fmt.Printf("\nc.Model.Filename : %v\n", c.Model.Filename)
 	//modelsFilePath := c.Model.Filename
-	//modelsFilePath := strings.Replace(c.Model.Filename, "models_gen.go", "_tmp_gqlgen_init.go", 1)
+	modelsFilePath := strings.Replace(c.Model.Filename, "models_gen.go", "_tmp_gqlgen_init.go", 1)
 	//modelsFilePath += "/_tmp_gqlgen_init.go" 
 
 	// Create a temporary file with "package models" to avoid autobind conflicts
-	// fmt.Printf("\nmodelsFilePath : %v\n", modelsFilePath)
-	// fmt.Printf("\nWill write to : %v\n", modelsFilePath + "/_tmp_gqlgen_init.go")
+	fmt.Printf("\nmodelsFilePath : %v\n", modelsFilePath)
+	fmt.Printf("Will write to : %v\n", modelsFilePath)
 	// file, err := os.Create(modelsFilePath + "/_tmp_gqlgen_init.go")
 	dir := path.Dir(c.Model.Filename)
-	fileName := "_tmp_gqlgen_init.go"
-	fmt.Printf("\nWill write to : %v\n", dir + "/" + fileName)
-	file, err := os.Create(dir + "/" + fileName)
+	fmt.Printf("path.Dir(c.Model.Filename) : %v\n", dir)
+
+	file, err := os.Create(modelsFilePath)
 	if err != nil {
 		fmt.Printf("ERROR os.Create: %v", err)
-		return nil
+		return err
 	}
+	fileName := file.Name()
+	file.Close()
 	
-	fmt.Printf("File created: %v", file.Name())
+	fmt.Printf("File created: %v\n", fileName)
 	defer os.Remove(file.Name())
 	
 	packageString := []byte("package model" + "\n\nfunc Ea() error { return nil }")
-	err = ioutil.WriteFile(file.Name(), packageString, 0644)
+	err = ioutil.WriteFile(fileName, packageString, 0644)
 	if err != nil {
 		fmt.Printf("ERROR ioutil.WriteFile: %v", err)
-		return nil
+		return err
 	}
-	file.Close()
 	
 	if len(c.AutoBind) == 0 {
 		return nil
