@@ -535,12 +535,12 @@ func (c *Config) autobind() error {
 	dir := path.Dir(c.Model.Filename)
 	fileName := "_tmp_gqlgen_init.go"
 	fmt.Printf("\nWill write to : %v\n", dir + "/" + fileName)
-	file, err := os.Create(dir + "/" + fileName + "/_tmp_gqlgen_init.go")
+	file, err := os.Create(dir + "/" + fileName)
 	if err != nil {
 		fmt.Printf("ERROR os.Create: %v", err)
 		return nil
 	}
-	defer os.Remove(dir + "/" + fileName)
+	//defer os.Remove(dir + "/" + fileName)
 	defer file.Close()
 
 	packageString := []byte("package model")
