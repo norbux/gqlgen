@@ -141,7 +141,7 @@ var initCmd = &cli.Command{
 				return fmt.Errorf("%s already exists", filename)
 			}
 		}
-		_, err = config.LoadConfigFromDefaultLocations()
+		_, err := config.LoadConfigFromDefaultLocations()
 		if err == nil {
 			return fmt.Errorf("gqlgen.yml already exists in a parent directory")
 		}
