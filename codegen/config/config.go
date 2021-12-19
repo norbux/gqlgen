@@ -540,12 +540,20 @@ func (c *Config) autobind() error {
 	path = strings.Replace(path, "[", "", 1)
 	path = strings.Replace(path, "]", "", 1)
 	path = strings.Replace(path, "gqlgen-fork/", "", 1)
-	tmpPackageNameFile := path + "/_tmp_gqlgen_init.go"
-	fmt.Printf("Will write %s",tmpPackageNameFile)
-	if err := initFile(tmpPackageNameFile, "package model"); err != nil {
-		return err
+	path += "/_tmp_gqlgen_init.go"
+
+	fmt.Printf("Will write %s\n", path)
+
+	file, err := os.Create(path + "/_tmp_gqlgen_init.go")
+	if err != nil {
+		return nil
 	}
-	defer os.Remove(tmpPackageNameFile)
+	defer os.Remove(path)
+	defer file.Close()
+
+	packageString := []byte("package model")
+	ioutil.WriteFile(path, packageString, 0644)
+
 
 	if len(c.AutoBind) == 0 {
 		return nil
