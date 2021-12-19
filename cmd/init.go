@@ -120,10 +120,17 @@ var initCmd = &cli.Command{
 		&cli.StringFlag{Name: "base-dir, bd", Usage: "Base directory for config file, server.go, schema and models", Value: ""},
 	},
 	Action: func(ctx *cli.Context) error {
+		cwd, err := os.Getwd()
+		if err != nil {
+			fmt.Println(err)
+		}
+
 		configFilename := ctx.String("config")
 		serverFilename := ctx.String("server")
 		schemaFilename := ctx.String("schema")
-		baseDirectory  := ctx.String("base-dir")
+		baseDirectory  := cwd + ctx.String("base-dir")
+
+		fmt.Printf("Base directory: %v", baseDirectory)
 
 		tmpl = strings.Replace(tmpl, "[baseDirectory]", baseDirectory, 6)
 		configTemplate.Parse(tmpl)
