@@ -532,7 +532,7 @@ func initFile(filename, contents string) error {
 }
 
 func (c *Config) autobind() error {
-	ps := c.Packages.LoadAll(c.AutoBind...)
+	
 
 	// Get the models path from the config file
 	fmt.Printf("\nc.Model.Filename : %v\n", c.Model.Filename)
@@ -561,7 +561,7 @@ func (c *Config) autobind() error {
 	//defer os.Remove(modelsFilePath)
 	fmt.Printf("File created: %v\n", modelsFilePath)
 	time.Sleep(time.Second * 4)
-	
+	ps := c.Packages.LoadAll(c.AutoBind...)
 	// fmt.Printf("File created: %v\n", fileName)
 	// //defer os.Remove(fileName)
 	// os.Remove(fileName)
