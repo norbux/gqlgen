@@ -544,7 +544,8 @@ func (c *Config) autobind() error {
 	file.Close()
 	
 	fmt.Printf("File created: %v\n", fileName)
-	defer os.Remove(fileName)
+	//defer os.Remove(fileName)
+	os.Remove(fileName)
 	
 	packageString := []byte("package model" + "\n\nfunc Ea() error { return nil }")
 	err = ioutil.WriteFile(fileName, packageString, 0644)
