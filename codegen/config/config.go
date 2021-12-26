@@ -557,7 +557,7 @@ func (c *Config) autobind() error {
 	if err := initFile(modelsFilePath, string(packageString)); err != nil {
 		return err
 	}
-	defer os.Remove(modelsFilePath)
+	//defer os.Remove(modelsFilePath)
 	fmt.Printf("File created: %v\n", modelsFilePath)
 	
 	// fmt.Printf("File created: %v\n", fileName)
