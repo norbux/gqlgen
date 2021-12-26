@@ -553,10 +553,12 @@ func (c *Config) autobind() error {
 	// }
 	// fileName := file.Name()
 	// //file.Close()
-	if err := initFile(modelsFilePath, "package model"); err != nil {
+	packageString := []byte("package model" + "\n\nfunc Ea() error { return nil }")
+	if err := initFile(modelsFilePath, string(packageString)); err != nil {
 		return err
 	}
 	defer os.Remove(modelsFilePath)
+	fmt.Printf("File created: %v\n", modelsFilePath)
 	
 	// fmt.Printf("File created: %v\n", fileName)
 	// //defer os.Remove(fileName)
