@@ -546,24 +546,28 @@ func (c *Config) autobind() error {
 	dir := path.Dir(c.Model.Filename)
 	fmt.Printf("path.Dir(c.Model.Filename) : %v\n", dir)
 
-	file, err := os.Create(modelsFilePath)
-	if err != nil {
-		fmt.Printf("ERROR os.Create: %v", err)
+	// file, err := os.Create(modelsFilePath)
+	// if err != nil {
+	// 	fmt.Printf("ERROR os.Create: %v", err)
+	// 	return err
+	// }
+	// fileName := file.Name()
+	// //file.Close()
+	if err := initFile(modelsFilePath, "package model"); err != nil {
 		return err
 	}
-	fileName := file.Name()
-	//file.Close()
+	defer os.Remove(modelsFilePath)
 	
-	fmt.Printf("File created: %v\n", fileName)
-	//defer os.Remove(fileName)
-	os.Remove(fileName)
+	// fmt.Printf("File created: %v\n", fileName)
+	// //defer os.Remove(fileName)
+	// os.Remove(fileName)
 	
-	packageString := []byte("package model" + "\n\nfunc Ea() error { return nil }")
-	err = ioutil.WriteFile(fileName, packageString, 0644)
-	if err != nil {
-		fmt.Printf("ERROR ioutil.WriteFile: %v", err)
-		return err
-	}
+	// packageString := []byte("package model" + "\n\nfunc Ea() error { return nil }")
+	// err = ioutil.WriteFile(fileName, packageString, 0644)
+	// if err != nil {
+	// 	fmt.Printf("ERROR ioutil.WriteFile: %v", err)
+	// 	return err
+	// }
 	
 	if len(c.AutoBind) == 0 {
 		return nil
