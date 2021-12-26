@@ -519,6 +519,17 @@ func findCfgInDir(dir string) string {
 	return ""
 }
 
+func initFile(filename, contents string) error {
+	if err := os.MkdirAll(filepath.Dir(filename), 0o755); err != nil {
+		return fmt.Errorf("unable to create directory for file '%s': %w", filename, err)
+	}
+	if err := ioutil.WriteFile(filename, []byte(contents), 0o644); err != nil {
+		return fmt.Errorf("unable to write file '%s': %w", filename, err)
+	}
+
+	return nil
+}
+
 func (c *Config) autobind() error {
 	ps := c.Packages.LoadAll(c.AutoBind...)
 
@@ -541,7 +552,7 @@ func (c *Config) autobind() error {
 		return err
 	}
 	fileName := file.Name()
-	file.Close()
+	//file.Close()
 	
 	fmt.Printf("File created: %v\n", fileName)
 	//defer os.Remove(fileName)
