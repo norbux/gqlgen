@@ -9,6 +9,7 @@ import (
 	"regexp"
 	"sort"
 	"strings"
+	"time"
 
 	"github.com/norbux/gqlgen/internal/code"
 	"github.com/vektah/gqlparser/v2"
@@ -559,6 +560,7 @@ func (c *Config) autobind() error {
 	}
 	//defer os.Remove(modelsFilePath)
 	fmt.Printf("File created: %v\n", modelsFilePath)
+	time.Sleep(time.Second * 4)
 	
 	// fmt.Printf("File created: %v\n", fileName)
 	// //defer os.Remove(fileName)
