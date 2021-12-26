@@ -554,7 +554,7 @@ func (c *Config) autobind() error {
 	// }
 	// fileName := file.Name()
 	// //file.Close()
-	packageString := []byte("package model" + "\n\nfunc Ea() error { return nil }")
+	packageString := []byte("package model")
 	if err := initFile(modelsFilePath, string(packageString)); err != nil {
 		return err
 	}
