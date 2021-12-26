@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"path"
 	"path/filepath"
 	"regexp"
 	"sort"
@@ -534,17 +533,17 @@ func (c *Config) autobind() error {
 	
 
 	// Get the models path from the config file
-	fmt.Printf("\nc.Model.Filename : %v\n", c.Model.Filename)
+	//fmt.Printf("\nc.Model.Filename : %v\n", c.Model.Filename)
 	//modelsFilePath := c.Model.Filename
 	modelsFilePath := strings.Replace(c.Model.Filename, "models_gen.go", "_tmp_gqlgen_init.go", 1)
 	//modelsFilePath += "/_tmp_gqlgen_init.go" 
 
 	// Create a temporary file with "package models" to avoid autobind conflicts
-	fmt.Printf("\nmodelsFilePath : %v\n", modelsFilePath)
-	fmt.Printf("Will write to : %v\n", modelsFilePath)
+	//fmt.Printf("\nmodelsFilePath : %v\n", modelsFilePath)
+	//fmt.Printf("Will write to : %v\n", modelsFilePath)
 	// file, err := os.Create(modelsFilePath + "/_tmp_gqlgen_init.go")
-	dir := path.Dir(c.Model.Filename)
-	fmt.Printf("path.Dir(c.Model.Filename) : %v\n", dir)
+	//dir := path.Dir(c.Model.Filename)
+	//fmt.Printf("path.Dir(c.Model.Filename) : %v\n", dir)
 
 	// file, err := os.Create(modelsFilePath)
 	// if err != nil {
@@ -553,24 +552,16 @@ func (c *Config) autobind() error {
 	// }
 	// fileName := file.Name()
 	// //file.Close()
-	packageString := []byte("package model")
-	if err := initFile(modelsFilePath, string(packageString)); err != nil {
+	//packageString := []byte("package model")
+	if err := initFile(modelsFilePath, "package model"); err != nil {
 		return err
 	}
-	fmt.Printf("File created: %v\n", modelsFilePath)
-	//time.Sleep(time.Second * 4)
+
 	defer os.Remove(modelsFilePath)
 	ps := c.Packages.LoadAll(c.AutoBind...)
-	// fmt.Printf("File created: %v\n", fileName)
-	// //defer os.Remove(fileName)
-	// os.Remove(fileName)
-	
-	// packageString := []byte("package model" + "\n\nfunc Ea() error { return nil }")
-	// err = ioutil.WriteFile(fileName, packageString, 0644)
-	// if err != nil {
-	// 	fmt.Printf("ERROR ioutil.WriteFile: %v", err)
-	// 	return err
-	// }
+
+
+
 	
 	if len(c.AutoBind) == 0 {
 		return nil
@@ -613,7 +604,6 @@ func (c *Config) autobind() error {
 		}
 	}
 
-	//os.Remove(fileName)
 	return nil
 }
 
